@@ -1,9 +1,6 @@
 {
   "eslint.useFlatConfig": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnPaste": true,
-  "editor.formatOnSave": true,
-  "editor.formatOnType": true,
   "editor.codeActionsOnSave": [
     "source.organizeImports",
     "source.fixAll.eslint"
@@ -11,6 +8,7 @@
   "typescript.preferences.importModuleSpecifier": "relative",
   "markdownlint.config": {
     "MD001": false,
+    "MD003": false,
     "MD022": false,
     "MD024": false,
     "MD025": false,
@@ -20,5 +18,6 @@
   },
   "[shellscript]": {
     "editor.defaultFormatter": "foxundermoon.shell-format"
-  }
+  },
+  "cSpell.words": ["slidev"]
 }
