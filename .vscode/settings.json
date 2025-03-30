@@ -1,0 +1,23 @@
+{
+  "eslint.useFlatConfig": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true,
+  "editor.codeActionsOnSave": [
+    "source.organizeImports",
+    "source.fixAll.eslint"
+  ],
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "markdownlint.config": {
+    "MD001": false,
+    "MD022": false,
+    "MD025": false,
+    "MD033": false,
+    "MD034": false,
+    "MD041": false
+  },
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  }
+}
