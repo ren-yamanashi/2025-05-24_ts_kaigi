@@ -9,7 +9,10 @@ highlighter: shiki
 # class: 'text-center'
 layout: cover
 fonts:
-  sans: 'Source Sans Pro'
+  # 標準テキスト
+  sans: Noto Sans JP
+  # コードブロック
+  mono: Fira Code
 ---
 
 # TypeScript の型システムを活用した
@@ -20,11 +23,11 @@ fonts:
 TSKaigi 2025
 
 ---
-layout: big-bullets
+src: ./pages/self-introduce.md
 ---
 
-<profile />
+---
+src: ./pages/roadmap.md
+---
 
-- job 👨‍💻: Web Backend Engineer
-- lang 📝: TypeScript
-- hobby 🚀: AWS CDK Contribute
+---
