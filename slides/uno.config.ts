@@ -8,5 +8,8 @@ export default defineConfig({
       vprimary: "rgb(66, 65, 65)",
       vsecondary: "rgb(94, 94, 94)"
     },
+    fontSize: {
+      "2xl": "1.5rem",
+    },
   },
 });

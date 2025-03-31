@@ -8,10 +8,10 @@ import defProps from '../utils/props';
   })
 </script>
 <template>
-  <div class="slidev-layout default big-bullet">
+  <div class="slidev-layout default bullet">
     <h1 v-if="props.heading">{{ props.heading }}</h1>
     <div class="flex items-center justify-center h-full -m-12">
-      <div>
+      <div class="text-2xl">
         <slot/>
       </div>
     </div>
@@ -19,18 +19,18 @@ import defProps from '../utils/props';
 </template>
 
 <style>
-.big-bullet li {
-  font-size: 30px !important;
-  margin-bottom: 15px !important;
-  margin-top: 15px !important;
+.bullet li {
+  font-size: 21.5px !important;
+  margin-bottom: 10px !important;
+  margin-top: 10px !important;
 }
 </style>
 <style lang="postcss">
-.big-bullet ul {
+.bullet ul {
   @apply !list-disc text-vprimary;
   font-size: 30px !important;
 }
-.big-bullet li::marker {
+.bullet li::marker {
   @apply inline-block text-vpurple;
 }
 </style>
