@@ -9,7 +9,7 @@ const title = ref(props.title);
 </script>
 
 <template>
-  <div class="ma-auto mt-10 w-auto text-center justify-center items-center flex flex-col">
+  <div class="ma-auto w-auto text-center justify-center items-center flex flex-col">
     <p class="justify-start items-center flex items-center text-4xl">
       <slot />
       {{ title }}

@@ -17,3 +17,15 @@
 	width: 100%;
 	text-align: center;
 }
+._bullet li {
+  font-size: 21.5px !important;
+  margin-bottom: 10px !important;
+  margin-top: 10px !important;
+}
+._bullet ul {
+  @apply !list-disc text-vprimary;
+  font-size: 30px !important;
+}
+._bullet li::marker {
+  @apply inline-block text-vpurple;
+}

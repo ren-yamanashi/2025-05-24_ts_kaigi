@@ -1,0 +1,51 @@
+---
+layout: default
+---
+
+<style>
+.mermaid {
+  font-size: 1.5rem !important;
+}
+</style>
+
+<section-title title="AST とは？" />
+
+<div class="_bullet">
+
+* コードをパースした抽象構文木(Abstract Syntax Tree)
+
+</div>
+
+<div>
+
+```mermaid
+flowchart LR
+
+字句解析 --トークン--> 構文解析 --> AST
+```
+
+</div>
+
+<div class="_bullet">
+
+* 字句解析: ソースコード(文字)を予約語, 変数名, 記号などのある程度の意味の塊(トークン)に分解する
+
+</div>
+
+````md magic-move
+
+```ts{*}
+let count = 10;
+```
+
+```json{*}
+{
+  "keyword": let,
+  "variable_name": count,
+  "operator": =,
+  "num_literal": 10,
+  "final_symbol": ;
+}
+```
+
+````

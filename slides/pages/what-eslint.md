@@ -1,24 +1,29 @@
 ---
-layout: bullets
+layout: default
 ---
+
 
 <section-title title="ESLint とは？">
   <img src="/eslint.png" class="w-15 h-15 mx-3 my-5" alt="ESLint  Icon" />
 </section-title>
 
-- JS / TS などのコードを解析し、コーディング規約違反コード等を検出する
-- リポジトリ内のコードの書き方を統一させることができる
-  - e.g. `if`文は必ず`{}`で囲うようにする(BlockStatement にする)
+<div class="_bullet">
+
+* JS / TS などのコードを解析し、コーディング規約違反コード等を検出する
+* リポジトリ内のコードの書き方を統一させることができる
+  * e.g. `if`文は必ず`{}`で囲うようにする(BlockStatement にする)
+
+</div>
 
 <br />
 
-<v-click at="1">
+<div v-click="1" class="text-2xl">
+
 コアルールがユースケースをカバーしていない場合は？
-</v-click>
 
-<br />
+</div>
 
-<div v-click="2" class="mt-4">
+<div v-click="2" class="mt-4 _bullet">
 
 * カスタムルールを作成する
 

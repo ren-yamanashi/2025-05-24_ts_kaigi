@@ -11,15 +11,14 @@ layout: center
 }
 </style>
 
+<div class="_bullet">
+
 * ESLint から提供されるインターフェースに沿ってルールを書く
-
-<div v-click>
-
-* AST を使用してソースコードを解析
 
 </div>
 
 ````md magic-move
+
 ```ts{*}
 import { Rule } from "eslint";
 
@@ -47,4 +46,5 @@ export const noImportPrivate: Rule.RuleModule = {
   },
 };
 ```
+
 ````
