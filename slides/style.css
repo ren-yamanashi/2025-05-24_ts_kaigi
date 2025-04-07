@@ -28,4 +28,9 @@
 }
 ._bullet li::marker {
   @apply inline-block text-vpurple;
+	font-weight: bold;
+}
+.slidev-code {
+  font-size: 1rem !important;
+  line-height: 1.25rem !important;
 }
