@@ -6,7 +6,6 @@ layout: center
 .slidev-code {
   font-size: 1.25rem !important;
   line-height: 30px !important;
-  width: 75vw;
   height: 400px;
 }
 </style>
@@ -22,7 +21,7 @@ layout: center
 ```ts{*}
 import { Rule } from "eslint";
 
-export const noImportPrivate: Rule.RuleModule = {
+export const sampleRule: Rule.RuleModule = {
   meta: {
     // ルールのメタデータを記述
   },
@@ -35,7 +34,7 @@ export const noImportPrivate: Rule.RuleModule = {
 ```ts{8-10}
 import { Rule } from "eslint";
 
-export const noImportPrivate: Rule.RuleModule = {
+export const sampleRule: Rule.RuleModule = {
   meta: {
     // ルールのメタデータを記述
   },
