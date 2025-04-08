@@ -85,3 +85,11 @@ src: ./pages/16.see-ast.md
 ---
 src: ./pages/17.coding.md
 ---
+
+---
+src: ./pages/18.develop-type-rule.md
+---
+
+---
+src: ./pages/19.about-type-rule.md
+---

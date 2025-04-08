@@ -102,7 +102,7 @@
 
 引用: https://github.com/typescript-eslint/typescript-eslint/tree/main/packages/parser
 
-### 実装 - No.1: TypeScript コードのルールを書く
+<!-- ### 実装 - No.1: TypeScript コードのルールを書く
 
 - `typescript-eslint`からルール作成のためのメソッドが提供されるので、そのメソッドの中でルールを実装していく
 - `interface`のプロパティには必ず`readonly`の付与を強制するルールを作る
@@ -113,7 +113,7 @@
       - AST を見ながら、どのパターンを違反対象にしたいか確認し、コードを実装する
       - テストを走らせ、成功することを確認する
 
-### 実装 - No.2: 型情報を使用したルールを書く(より高度な Lint ルールの開発)
+### 実装 - No.2: 型情報を使用したルールを書く(より高度な Lint ルールの開発) -->
 
 - AST Node から型情報を取り出し、型情報を使用したルールを書く
   - ルールの内容
