@@ -12,6 +12,15 @@ export const requireIfBlock: Rule.RuleModule = {
     schema: [],
   },
   create(context) {
-    return {};
+    return {
+      IfStatement(node) {
+        if (node.consequent.type === "ExpressionStatement") {
+          context.report({
+            node,
+            messageId: "requireIfBlock",
+          });
+        }
+      },
+    };
   },
 };
