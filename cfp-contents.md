@@ -89,9 +89,6 @@
   - `espree`は TS の parser ではなく、JS の parser のため、TS のコードは parse できない
 - TypeScript コードを対象とする ESLint のカスタムルールを作成する場合は、`typescript-eslint`を使用するのが良い
   - `typescript-eslint`は`@typescript-eslint/parser`という parser を使用して、TypeScript コードを parse している
-
-### 仕組み
-
 - typescript-eslint では、[@typescript-eslint/typescript-estree](https://github.com/typescript-eslint/typescript-eslint/tree/main/packages/typescript-estree) で TypeScript の AST を生成し、[@typescript-eslint/parser](https://github.com/typescript-eslint/typescript-eslint/tree/main/packages/parser) で ESLint が TypeScript のソースコードを lint できるようにしている
 
 > A parser that produces an ESTree-compatible AST for TypeScript code.
@@ -115,6 +112,13 @@
 
 ### 実装 - No.2: 型情報を使用したルールを書く(より高度な Lint ルールの開発) -->
 
+### 型情報ルールの例
+
+- `switch-exhaustiveness-check`
+- `strict-boolean-expressions`
+
+### 型情報を使用したカスタムルールの例
+
 - AST Node から型情報を取り出し、型情報を使用したルールを書く
   - ルールの内容
     - 特定のクラスを必ず継承するようにする
@@ -122,7 +126,7 @@
     - 特定のクラスを継承している場合に、〇〇のようなコードを防ぐ
       - `Construct`を継承しているクラスの第二引数(Construct ID)は必ず PascalCase にする
 
-#### 仕組み
+### 仕組み
 
 - typescript には、[`getTypeAtLocation`](https://github.com/microsoft/TypeScript/blob/v5.8.2/src/compiler/types.ts#L5160)という関数がある
 

@@ -13,14 +13,8 @@ fonts:
   sans: Noto Sans JP
   # コードブロック
   mono: Fira Code
+src: ./pages/01.title.md
 ---
-
-# TypeScript の型システムを活用した
-# ESLint カスタムルールの開発入門
-
-## ~固有ドメインにおけるコーディング規約を開発する~
-
-TSKaigi 2025
 
 ---
 src: ./pages/02.self-introduce.md
