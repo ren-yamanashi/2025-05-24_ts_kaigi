@@ -92,3 +92,6 @@ src: ./pages/19.why-need-typescript-eslint.md
 src: ./pages/20.difference-base-rule.md
 ---
 
+---
+src: ./pages/21.develop-type-custom-rule.md
+---

@@ -114,11 +114,6 @@
 
 ### 実装 - No.2: 型情報を使用したルールを書く(より高度な Lint ルールの開発) -->
 
-### 型情報ルールの例
-
-- `switch-exhaustiveness-check`
-- `strict-boolean-expressions`
-
 ### 型情報を使用したカスタムルールの例
 
 - AST Node から型情報を取り出し、型情報を使用したルールを書く
