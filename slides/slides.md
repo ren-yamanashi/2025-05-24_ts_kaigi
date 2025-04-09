@@ -85,5 +85,10 @@ src: ./pages/18.develop-type-rule.md
 ---
 
 ---
-src: ./pages/19.about-type-rule.md
+src: ./pages/19.why-need-typescript-eslint.md
 ---
+
+---
+src: ./pages/20.difference-base-rule.md
+---
+

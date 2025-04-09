@@ -85,6 +85,8 @@
 
 ## 型情報を活用したカスタム Lint ルールの開発
 
+### なぜ、typescript-eslint が必要か
+
 - eslint のみを使用した場合、TypeScript コードは対応されていない
   - `espree`は TS の parser ではなく、JS の parser のため、TS のコードは parse できない
 - TypeScript コードを対象とする ESLint のカスタムルールを作成する場合は、`typescript-eslint`を使用するのが良い
