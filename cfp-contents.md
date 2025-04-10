@@ -125,6 +125,8 @@
 
 ### 仕組み
 
+<!-- TODO: pascal-case-construct-id を`examples` に実装する -->
+
 - typescript には、[`getTypeAtLocation`](https://github.com/microsoft/TypeScript/blob/v5.8.2/src/compiler/types.ts#L5160)という関数がある
 
   - これは、`Node`を受け取ると`Type`を返す関数
