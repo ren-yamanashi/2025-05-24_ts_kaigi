@@ -6,4 +6,5 @@
 - https://typescript-eslint.io/blog/typed-linting/
 - https://eslint.org/blog/2025/01/differences-between-eslint-and-typescript/ 
   - 19~20ページ目
-  
+- https://typescript-eslint.io/blog/asts-and-typescript-eslint/
+  - astとは
