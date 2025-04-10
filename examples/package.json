@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,6 +11,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@typescript-eslint/rule-tester": "^8.29.1",
+    "@typescript-eslint/utils": "^8.29.1",
     "eslint": "^9.23.0",
     "typescript": "^5.8.2",
     "typescript-eslint": "^8.28.0",
