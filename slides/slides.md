@@ -95,3 +95,7 @@ src: ./pages/20.difference-base-rule.md
 ---
 src: ./pages/21.develop-type-custom-rule.md
 ---
+
+---
+src: ./pages/22.develop-pascal-case-construct-id.md
+---
