@@ -97,5 +97,5 @@ src: ./pages/21.develop-type-custom-rule.md
 ---
 
 ---
-src: ./pages/22.develop-pascal-case-construct-id.md
+src: ./pages/22.get-type-from-ast.md
 ---
