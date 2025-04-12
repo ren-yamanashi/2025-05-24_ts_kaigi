@@ -99,3 +99,7 @@ src: ./pages/21.develop-type-custom-rule.md
 ---
 src: ./pages/22.get-type-from-ast.md
 ---
+
+---
+src: ./pages/23.check-extended-construct.md
+---
