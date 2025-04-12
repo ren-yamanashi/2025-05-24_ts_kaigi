@@ -103,3 +103,7 @@ src: ./pages/22.get-type-from-ast.md
 ---
 src: ./pages/23.check-extended-construct.md
 ---
+
+---
+src: ./pages/24.check-pascal-case.md
+---
