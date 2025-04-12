@@ -33,10 +33,6 @@ src: ./pages/05.what-eslint.md
 ---
 
 ---
-src: ./pages/06.what-eslint-custom-rule.md
----
-
----
 src: ./pages/07.eslint-interface.md
 ---
 
