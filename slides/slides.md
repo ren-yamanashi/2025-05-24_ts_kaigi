@@ -53,10 +53,6 @@ src: ./pages/11.what-parse.md
 ---
 
 ---
-src: ./pages/12.why-abstract.md
----
-
----
 src: ./pages/13.develop-custom-rule.md
 ---
 
