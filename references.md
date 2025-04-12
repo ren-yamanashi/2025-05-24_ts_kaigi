@@ -8,3 +8,5 @@
   - 19~20ページ目
 - https://typescript-eslint.io/blog/asts-and-typescript-eslint/
   - astとは
+- https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Lexical_grammar
+- https://github.com/v8/v8/blob/main/src/parsing/token.h#L167
