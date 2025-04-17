@@ -91,6 +91,8 @@ AST とは、ソースコードをパースした抽象構文木、Abstract Stnt
 ここで生成されるASTでは、スペースの数など、表面的な表現の違いが吸収され、コードの本質的な意味や構造だけを抽出して表現されます。  
 ASTとはAbstract Syntax Tree の略ですが、この Abstract, つまり抽象とは、そういった表面的な表現の違いに左右されないことを意味します
 
+ESLint では、このようなソースコードからASTを生成するといったパース処理を、`espree`というparserを使用して行っています。
+
 ASTの概要について触れたところで、ここからは、実際にシナリオを立てて、そのシナリオを元にカスタムルールの開発についてお話しします
 最終的には型情報を使用したルールについてお話ししますが、段階的に進めるために、まずは、ESLint のみを使用したカスタムルールの開発についてお話しします。ここでは型情報を扱わず JavaScript コードを対象として、ざっくりとしたカスタムルールの開発の流れを掴みます。  
 
@@ -192,4 +194,40 @@ ASTの概要について触れたところで、ここからは、実際にシ�
 
 なんとなくのESLintカスタムルール作成の流れを掴んだところで、本題である、型情報を使用したカスタムルールの開発についてお話しします。
 
-型情報を使用した ESLint カスタムルール を開発する上で不可欠となるのが、`typescript-eslint`です。  
+型情報を使用した ESLint カスタムルール を開発するためには、`typescript-eslint`が必要となります。  
+
+そもそも、先ほど作成したような型情報を扱わないESLintルール。いわゆる、従来のESLintルールと、型情報を扱うLintルールの違いは何でしょうか？
+
+従来のESLintルールは、一度に一つのファイルに対して実行され、プロジェクト内の他のファイルについての知識は持っていません。  
+要するに、他のファイルの内容に基づいて、判断を下すことはできません。  
+一方で、型情報Lintルールは、他のファイルの内容に基づいて判断を下すことができます。
+
+実際に、typescript-eslint の `@typescript-eslint/no-for-in-array` というルールを例に見てみます。
+この`no-for-in-array`というルールは、配列型の値に対する`for...in`を検出するものです。  
+このルールを適用した場合、こちらのコードのように、別のファイルで定義されている関数の情報を見て、それが配列型であると判断し、`for..in`が使われているためにエラーとなっています。
+
+<!-- 参考: https://eslint.org/blog/2025/01/differences-between-eslint-and-typescript/#eslint-with-type-information -->
+
+```ts
+// declare function getArrayOfNames(): string[];
+import { getArrayOfNames } from "./my-names";
+
+for (const name in getArrayOfNames()) {
+    // eslint(@typescript-eslint/no-for-in-array):
+    // For-in loops over arrays skips holes, returns indices as strings,
+    // and may visit the prototype chain or other enumerable properties.
+    // Use a more robust iteration method such as for-of or array.forEach instead.
+    console.log(name);
+}
+```
+
+では、ESLintはどのようにして、他のファイルで定義された関数の情報（＝型情報）まで考慮して、このようなチェックを実現しているのでしょうか？そのあたりの仕組みについて簡単にまとめます。
+
+ESLint では espree という parser を使用して、ソースコードからASTを生成しております。しかしこのespreeというparserは、JavaScriptのparserであるため、TypeScriptコードをparseすることはできません。  
+そこで、`typescript-eslint/parser`を使用して、TypeScriptコードをparseし、TypeScriptのASTを生成します。
+<!-- MEMO: typescript-estreeの話も混ぜられたら混ぜる -->
+
+また、型情報を使用したLintルールを使用する際には、typescript compiler api を使用して、AST ノードの型情報を取得します。  
+`typescript-eslint`では、その辺りの処理をいい感じにラップしてくれているので、複雑な実装をせずに、ASTの型情報を扱えるといった特徴もあります。
+
+型情報Lintルールの概要について触れたところで、実際にルールの開発に移ります。
