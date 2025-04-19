@@ -346,15 +346,15 @@ JavaScript コードを対象とした ESLintのルール実装は、このよ�
 TypeScript のコードを対象とする場合、ESLint に TypeScript コードを parse できる parserを追加する必要があります。  
 そこで `typescript-eslint`, 正確には `typescript-eslint/parser` を使用するといった目的です。
 
-二つ目の型情報Lintルールが提供されるというのは、TypeScriptの型情報に基づいたLintルールが提供されるといったそのままの意味になりますが、もう少し詳しく、従来のESLintルールと、型情報Lintルール違いとは何かといったところについてまとめます。
+二つ目の型情報Lintルールが提供されるというのは、TypeScriptの型情報に基づいたLintルールが提供されるといったそのままの意味になりますが、もう少し詳しく、従来のESLintルールと、型情報Lintルール違いとは何なのかといったところについてまとめます。
 
 従来のESLintルールは、一度に一つのファイルに対して実行され、プロジェクト内の他のファイルについての知識は持っていません。  
 要するに、他のファイルの内容に基づいて、判断を下すことはできません。  
 一方で、型情報Lintルールは、他のファイルの内容に基づいて判断を下すことができます。
 
 実際に、typescript-eslint の `@typescript-eslint/no-for-in-array` というルールを例に見てみます。
-この`no-for-in-array`というルールは、配列型の値に対する`for...in`を検出するものです。  
-このルールを適用した場合、こちらのコードのように、別のファイルで定義されている関数の情報を見て、それが配列型であると判断し、`for..in`が使われているためにエラーとなっています。
+このルールは、配列型の値に対する`for...in`を検出するものです。  
+これ適用した場合、こちらのコードのように、別のファイルで定義されている関数の情報を見て、それが配列型であると判断し、`for..in`が使われている場合は、エラーとしています。
 
 <!-- 参考: https://eslint.org/blog/2025/01/differences-between-eslint-and-typescript/#eslint-with-type-information -->
 
@@ -371,21 +371,24 @@ for (const name in getArrayOfNames()) {
 }
 ```
 
-では、ESLintはどのようにして、他のファイルで定義された関数の型情報まで考慮して、このようなチェックを実現しているのでしょうか？そのあたりの仕組みについて簡単にまとめます。
+では、ESLintはどのようにして、他のファイルで定義された関数の型情報まで考慮して、このようなチェックを実現しているのでしょうか？そのあたりの仕組みについて簡単にまとめると、このようになります。
 
-<!-- ここから -->
+```md
+1. `typescript-eslint/parser`を使用してASTを生成
+2. TypeScript Compiler API を使用して、ASTを元に型情報を取得
+3. 取得した型情報とASTを元にチェック
+```
 
-`typescript-eslint`では、`typescript-eslint/parser`を使用して、TypeScriptコードをparseし、ASTを生成します。
-そして、typescript compiler api を使用して、生成された AST ノードの型情報を取得します。  
-`typescript-eslint`では、その辺りの処理をいい感じにラップしてくれているので、複雑な実装をせずに、ASTの型情報を扱えるといった特徴もあります。
+かなりざっくりですが、`typescript-eslint/parser`を使用してTypeScriptコードをparseし、ASTを生成すると、そのASTの型情報を、TypeScript Compiler API を使用して取得します。  
+そして、取得した型情報とASTを元にチェックするといった感じです。
 
 型情報Lintルールの概要について触れたところで、実際にルールの開発に移ります。
 
 ---
 
-今回は2種類のルールを作成していくのですが、まずは、TypeScriptの AST から 型情報を取得する方法について理解を深めることを目的として、ルールを実装します。
+今回は、`typescript-eslint/parser`によって生成された AST から 型情報を取得する方法について理解を深めることを目的として、ルールを実装します。
 
-架空のシナリオとして「カスタムの`Error`クラスが、標準の`Error`クラスを継承しているかを判断し、継承していない場合は規約違反とする」というものを考えます。
+架空のシナリオとして「カスタムエラークラスが、標準の`Error`クラスを継承しているかを判断し、継承していない場合は規約違反とする」というものを考えます。
 
 具体的な正常ケース、異常ケースのコードとしては、こちらのようになります
 
@@ -405,10 +408,10 @@ declare class BaseClass {}
 export class BaseError extends BaseClass {}
 ```
 
-`SampleError`や`BaseError`など、クラス名の末尾に 「Error」 とつく場合、`Error`クラスを直接、あるいは間接的に継承している場合は正常としています。
-一方で、Errorクラスを継承していない場合は、異常としています。
+`SampleError`や`BaseError`など、クラス名の末尾に 「Error」 とつく場合で、`Error`クラスを直接、あるいは間接的に継承している場合は正常としています。
+一方で末尾に「Error」がつくクラスが、標準のErrorクラスを継承していない場合は、異常としています。
 
-ルール実装の流れとしては、このようになります。
+このシナリオに基づいたルール実装の流れとしては、このようになります。
 
 ```md
 1. 定義されたクラス名の末尾が`Error`かを判定
@@ -417,33 +420,86 @@ export class BaseError extends BaseClass {}
 4. 継承していない場合はエラーとする
 ```
 
-まず、ASTの情報から、定義されたクラスのクラス名の末尾が`Error`かを判定します。YESの場合、ASTから型情報を取得し、その型情報を辿って、定義されたクラスが`Error`クラスを継承しているか判定します。  
+```mermaid
+
+flowchart TD
+
+A{クラス名の末尾がErrorか？}
+
+開始
+--> A --> |YES| B[ASTからから情報を取得]
+A --> |NO| E1[終了]
+B --> C{Errorクラスを継承しているか}
+C --> |YES| E2[終了]
+C --> |NO| Error
+```
+
+まず、ASTの情報から、定義されたクラスのクラス名の末尾が`Error`かを判定します。  
+YESの場合、ASTから型情報を取得し、その型情報を辿って、定義されたクラスが`Error`クラスを継承しているか判定します。  
 そして、継承していない場合はエラーとします。
 
-ではまず初めに、定義されたクラス名の末尾が`Error`かを判定するところから実装していきますが、そのためにはまず、クラスを定義するコードがどのような AST になっているかを把握する必要があります。  
-そのため、`SampleError`という名前のクラスを定義した時のASTを見てみます。
+ではさっそく、定義されたクラス名の末尾が`Error`かを判定する実装を行います。  
+この実装を行うには、クラスを定義するコードから、どのような AST が生成するかを把握したいので、`SampleError`という名前のクラスを定義した時のASTを見てみます。
 
-ここではかなり簡潔化したASTをスライドに載せていますが、ClassDeclarationsの`id`プロパティの`name`に、クラス名が格納されていることがわかります。  
+```jsonc
+// class SampleError {}
+{
+  "type": "Program",
+  "body": [
+    {
+      "type": "ClassDeclaration",
+      "id": {
+        "type": "Identifier",
+        "name": "SampleError"
+      },
+      "body": {
+        "type": "ClassBody",
+        "body": []
+      }
+    }
+  ],
+  "sourceType": "module"
+}
+```
+
+表示されているものはASTをかなり単純化したものですが、ClassDeclarationsの`id`プロパティの`name`に、クラス名が格納されていることがわかります。  
 そのため、クラス名の末尾が`Error`になっているかを判断するコードをこのように実装します
 
-([参考コード](./examples/src/require-extends-error.ts))
+```ts
+import { ESLintUtils } from "@typescript-eslint/utils";
+import { SymbolFlags, Type } from "typescript";
 
-続いては、末尾が`Error`の場合、ASTから型情報を取得する実装です。  
+export const requireExtendsError = ESLintUtils.RuleCreator.withoutDocs({
+  meta: {
+    // ...
+  },
+  create(context) {
+    const parserServices = ESLintUtils.getParserServices(context);
+    return {
+      ClassDeclaration(node) {
+        if (!node.id?.name.endsWith("Error")) return;
+      },
+    };
+  },
+});
+```
 
-AST から 型情報を取得する場合、typescript の `getTypeAtLocation` という関数を使用します。  
+続いて、ASTから型情報を取得する実装を行います。  
+
+ASTから型情報を取得する際には、typescript の `getTypeAtLocation` という関数を使用します。  
 
 ```ts
 getTypeAtLocation(node: Node): Type;
 ```
 
-この関数は、Node, つまり TypeScript AST ノード を受け取ると、Type, 型情報 を返す関数で、この関数定義は、typescript の TypeChecker という interface に含まれています。
+この関数は、TypeScriptのASTノードを受け取ると、型情報を返す関数です
 
 つまり、この `getTypeAtLocation` を呼び出すことで、AST から 型情報を取得できるといった感じになります。
 
-ただ、ここで注意したいのは、`getTypeAtLocation`が受け取るノードは、TypeScript の世界の AST ノードであり、`typescript-eslint`が生成するASTノードではないということです。  
-そのため、`typescript-eslint`が生成するASTを `typescript` の AST に変換し、それを`getTypeAtLocation`関数に渡す必要があります  
+ただ、ここで注意したいのは、`getTypeAtLocation`が受け取るASTノードは、TypeScriptの世界のASTノードであり、`typescript-eslint`が生成するASTノードではないということです。  
+そのため、`typescript-eslint`が生成するASTを`typescript`のASTに変換し、それを`getTypeAtLocation`関数に渡す必要があります  
 
-そこで、`typescript-eslint`から提供される、parserServicesを使用します。  
+そこで、`typescript-eslint`から提供される、`parserServices`を使用します。  
 具体的なコードは、このようになります
 
 ```ts
@@ -456,9 +512,9 @@ return {
 }
 ```
 
-このparserServicesに含まれる`getTypeAtLocation`は`typescript-eslint`のNodeを受け取り、型情報を返す関数です。
+このparserServicesに含まれる`getTypeAtLocation`は`typescript-eslint`のAST Nodeを受け取り、型情報を返す関数です。
 
-この関数では内部的に、`typescript-eslint`のNodeをTypeScriptのNodeに変換し、TypeScriptの`getTypeAtLocation`つまり先ほど紹介した、TypeScriptのNodeを受け取り型情報を取得する関数を呼び出しています。
+この関数では内部的に、`typescript-eslint`のAST NodeをTypeScriptのAST Nodeに変換し、TypeScriptの`getTypeAtLocation`つまり先ほど紹介した、TypeScriptのAST Nodeを受け取り型情報を取得する関数を呼び出しています。
 
 参考: https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/typescript-estree/src/createParserServices.ts#L35-L36
 
@@ -480,9 +536,9 @@ const isExtendedError = (type: Type): boolean => {
 };
 ```
 
-こちらの`isExtendedError`関数は、`Error`を継承している場合はtrueを返す関数です。
-この関数では、`type`の情報を見て、クラス名が`Error`の場合は、trueを返すようにしています。
-親の型情報を取得するために、`typescript`の`getBaseTypes`関数を使用して、再起的に実行するようにしています。
+今回は`isExtendedError`という名前の関数を定義し、`Error`を継承している場合はtrueを返すようにしています。  
+この関数では、`Type`,つまり型情報を見て、クラス名が`Error`の場合は、trueを返すようにしています。
+また、`typescript`の`getBaseTypes`関数を使用して、親の型情報を取得し、再起的に`isExtendedError`関数を呼び出すようにしています。
 
 ここまで実装できればあとは簡単で、この関数を実行し、Errorを継承していない場合は、規約違反とみなすように実装します。  
 具体的にはこちらのようなコードになります
@@ -496,7 +552,7 @@ context.report({
 });
 ```
 
-ここまで、ASTから型情報を取得し、それを元にESLintルールを実装する方法について紹介しました。  
+ここまで、ASTから型情報を取得し、それを元にカスタムルールを実装する方法について紹介しました。  
 最後に、その応用として、少し高度なルールの実装に触れて終わりたいと思います。
 
 <!-- ジェネリクスにも対応する -->
