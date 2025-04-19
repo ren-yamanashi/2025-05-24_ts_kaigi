@@ -219,7 +219,7 @@ ASTとはAbstract Syntax Tree の略ですが、この Abstract, つまり抽象
 ここからは、実際にシナリオを立てて、そのシナリオを元にカスタムルールを開発していきます。  
 
 最終的には型情報を使用したルールについてお話ししますが、段階的に進めるために、まずは、ESLint のみを使用したカスタムルールの開発についてお話しします。  
-ここでは型情報を扱わず JavaScript コードを対象として、ざっくりとしたカスタムルールの開発の流れを掴みます。  
+ここでは TypeScript コードを対象とせず、 JavaScript コードを対象として、ざっくりとしたカスタムルールの開発の流れを掴みます。  
 
 紹介する内容についてですが、実は、ESLintカスタムルール開発をどのように書くかというドキュメントが、公式から公開されています。https://eslint.org/docs/latest/extend/custom-rule-tutorial
 
@@ -371,11 +371,43 @@ JavaScript コードを対象とした ESLintのルール実装は、このよ�
 そして、こちらのコードのように、ruleTesterの`run`メソッドを使用して、テスト対象のモジュールを指定し、正常系・異常系のテストケースを書きます。
 
 テストの実行は、vitest, jest など、普段使用しているテストフレームワークで行えます。  
-ここまでが、カスタムルールの基本的な開発の流れになります。
+ここまでが、ESLint を使用した、カスタムルールの基本的な開発の流れになります。
 
-作成したカスタムルールを自身のプロジェクトに適用するときは、このように、
+---
 
-なんとなく、カスタムルール作成の流れを掴んだところで、本題である、型情報を使用したカスタムルールの開発についてお話ししたいと思います。
+続いては、TypeScript 構文もサポートしたカスタムルールの開発を行なっていきたいと思います。
+
+まず、前提としてですが、ESLint だけでは、TypeScript コードを対象とした Lint を実行することはできません。  
+それは、ESLint のパーサーとして使用されている `espree` は JavaScript の parser であり、 TypeScript 構文はサポートされていないからです。  
+
+そこで、`typescript-eslint` を使用します。  
+`typescript-eslint`では、`@typescript-eslint/typescript-estree` でTypeScriptコード用のASTを生成し、`@typescript-eslint/parser`でESLintがTypeScriptのソースコードをlintできるようにしています。
+
+> A parser that produces an ESTree-compatible AST for TypeScript code.
+
+引用: https://github.com/typescript-eslint/typescript-eslint/tree/main/packages/typescript-estree
+
+> An ESLint parser which leverages TypeScript ESTree to allow for ESLint to lint TypeScript source code.
+
+引用: https://github.com/typescript-eslint/typescript-eslint/tree/main/packages/parser
+
+`typescript-eslint`にも、ESLint 同様に、カスタムルールを作成するためのモジュールが提供されています。  
+これを使用することで、TypeScript コードを対象としたカスタムルールの作成が可能になります。
+
+これから、`typescript-eslint`を使用したカスタムルールの開発についてこちらの二つの段階に分けて進めていきます。  
+
+```md
+1. TypeScript コードの AST を使用したルールの開発
+2. TypeScript コードの AST と型情報を使用したルールの開発
+```
+
+どちらもTypeScriptコードの AST を対象としていますが、二つ目の方では、AST だけでなく、型情報も使用したリントルールを実装していきます。
+
+では早速ひとつめの、TypeScript コードの AST を使用したルールの開発についてお話ししますが、今回はシナリオとして、「interface のプロパティには必ずreadonlyをつける」というルールを実装していきます。  
+
+開発の流れは、先ほどの ESLint カスタムルールの開発と同様の流れになります。
+
+<!-- ここから -->
 
 ---
 
@@ -386,7 +418,7 @@ JavaScript コードを対象とした ESLintのルール実装は、このよ�
 一つ目は、TypeScript構文がサポートされること。二つ目は、型情報Lintルールが提供されることです。
 
 一つ目に関してですが、前提として、ESLint だけでは、TypeScript コードを対象とした Lint を実行することはできません。  
-それは、ESLint のパーサーとして使用されている `espree` は JavaScript の parser であり、 TypeScript 構文はサポートされていないからです。  z
+それは、ESLint のパーサーとして使用されている `espree` は JavaScript の parser であり、 TypeScript 構文はサポートされていないからです。  
 TypeScript のコードを対象とする場合、ESLint に TypeScript コードを parse できる parserを追加する必要があります。  
 そこで `typescript-eslint`, 正確には `typescript-eslint/parser` を使用するといった目的です。
 
