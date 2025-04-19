@@ -23,3 +23,11 @@ export const requireIfBlock: Rule.RuleModule = {
     };
   },
 };
+
+const plugin = {
+  rules: {
+    "require-if-block": requireIfBlock,
+  },
+};
+
+export default plugin;
