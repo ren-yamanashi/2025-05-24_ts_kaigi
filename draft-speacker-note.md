@@ -17,6 +17,13 @@
 このセッションでは、そういったカスタムルール開発の理解を深めるためのお話を、段階的にいたします。  
 具体的にはこちらの流れでお話しします。
 
+```md
+1. ESLint とは  
+2. AST とは
+3. ESLint を使用したカスタムルールの開発
+4. typescript-eslint を使用した 型情報 Lint ルールの開発
+```
+
 最初に、ESLint や ESLint カスタムルールの概要についてお話しします。  
 そして、ESLint カスタムルールの開発に不可欠である、AST の概要についてお話しします。  
 AST というと難易度が高い印象を受ける方も多いかもしれませんが、今回は入門として、コードを例に挙げ、大まかな概要について触れます。  
@@ -33,7 +40,49 @@ ESLint には、カスタムルールを作成するためのモジュール、�
 ここで記述されたカスタムルールは、eslint が AST を走査する際にフックされ、呼び出されます。
 そのため、ESLint から提供された AST を参照し、それを元に、特定の条件に従うかを判定する実装を行う。というのが、カスタムールール開発の主な内容になります。
 
+```ts
+import { Rule } from "eslint";
+
+export const sampleRule: Rule.RuleModule = {
+  meta: {
+    // ルールのメタデータを記述
+  },
+  create(context) {
+    // ルールを記述
+  },
+};
+```
+
 例えば、チームのコーディング規約として、if文は必ず Block を使用したい。つまり波括弧で囲うようにしたいというユースケースがあると仮定した場合、カスタムルールの内容はこちらのコードのようになります。  
+
+```ts
+import { Rule } from "eslint";
+
+export const requireIfBlock: Rule.RuleModule = {
+  meta: {
+    type: "problem",
+    docs: {
+      description: "if文を Block Statement で記述することを強制する",
+    },
+    messages: {
+      requireIfBlock: "if文にブロックを使用してください",
+    },
+  },
+  create(context) {
+    return {
+      IfStatement(node) {
+        if (node.consequent.type !== "BlockStatement") {
+          context.report({
+            node,
+            messageId: "requireIfBlock",
+          });
+        }
+      },
+    };
+  },
+};
+```
+
 このコードでは、`node`という変数名で JavaScript の AST を受け取り、それに対する操作を行なっています。  
 このように、ESLint のカスタムルールを実装する際には、ASTへの理解が求められます。  
 
@@ -69,7 +118,29 @@ AST とは、ソースコードをパースした抽象構文木、Abstract Synt
 }
 ```
 
-(木構造のグラフを見せながら)
+```mermaid
+graph TD
+    A["Program<br/>(sourceType: module)"] --> B["VariableDeclaration<br/>(kind: let)"]
+    B --> C["VariableDeclarator"]
+    
+    C --> D["id: Identifier<br/>(name: count)"]
+    C --> E["init: Literal<br/>(value: 10, raw: '10')"]
+    
+    %% スタイル定義
+    classDef program fill:#e6f7ff,stroke:#1890ff,stroke-width:2px
+    classDef declaration fill:#fff7e6,stroke:#fa8c16,stroke-width:2px
+    classDef declarator fill:#f6ffed,stroke:#52c41a,stroke-width:2px
+    classDef identifier fill:#fff2f0,stroke:#f5222d,stroke-width:2px
+    classDef literal fill:#f9f0ff,stroke:#722ed1,stroke-width:2px
+    
+    %% スタイル適用
+    class A program
+    class B declaration
+    class C declarator
+    class D identifier
+    class E literal
+```
+
 このように、ASTはコードの構造を階層的に表現する「木構造」です。そして、各ノードがコードの一部を表し、ノード間の親子関係がコードの構文的な関係を示します。
 
 こちらのJSONをを見てみると、最上位の`Program`ノードの中に、`VariableDeclaration`つまり変数宣言のノードがあることがわかります。  
@@ -279,3 +350,72 @@ export class BaseError extends BaseClass {}
 ([参考コード](./examples/src/require-extends-error.ts))
 
 続いては、末尾が`Error`の場合、ASTから型情報を取得する実装です。  
+
+AST から 型情報を取得する場合、typescript の getTypeAtLocation という関数を使用します。  
+
+```ts
+getTypeAtLocation(node: Node): Type;
+```
+
+この関数は、Node, つまり TypeScript AST ノード を受け取ると、Type, 型情報 を返す関数で、この関数定義は、typescript の TypeChecker という interface に含まれています。
+
+つまり、この `getTypeAtLocation` を呼び出すことで、AST から 型情報を取得できるといった感じになります。
+
+ただ、ここで注意したいのは、`getTypeAtLocation`が受け取るノードは、TypeScript の世界の AST ノードであり、`typescript-eslint`が生成するASTノードではないということです。  
+そのため、`typescript-eslint`が生成するASTを `typescript` の AST に変換し、それを`getTypeAtLocation`関数に渡す必要があります  
+
+そこで、`typescript-eslint`から提供される、parserServicesを使用します。  
+具体的なコードは、このようになります
+
+```ts
+const parserServices = ESLintUtils.getParserServices(context);
+return {
+  ClassDeclaration(node) {
+    if (!node.id?.name.endsWith("Error")) return;
+    const nodeType = parserServices.getTypeAtLocation(node);
+  }
+}
+```
+
+このparserServicesに含まれる`getTypeAtLocation`は`typescript-eslint`のNodeを受け取り、型情報を返す関数です。
+
+この関数では内部的に、`typescript-eslint`のNodeをTypeScriptのNodeに変換し、TypeScriptの`getTypeAtLocation`つまり先ほど紹介した、TypeScriptのNodeを受け取り型情報を取得する関数を呼び出しています。
+
+参考: https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/typescript-estree/src/createParserServices.ts#L35-L36
+
+ここまでで、AST から型情報を取得する実装が完了したので、続いて、型情報を辿って、定義されたクラスが`Error`を継承しているかを判定する実装を行います。
+
+今回のルール実装では、自身の型情報のみではなく、クラスの継承元の型情報も必要となるため、再起的に親の型情報を取得し、`Error`クラスを継承しているかを判定する実装を行います。
+
+この要件を満たした具体的なコードは、このようになります。
+
+```ts
+const nodeType = parserServices.getTypeAtLocation(node);
+
+const isExtendedError = (type: Type): boolean => {
+  if (type.symbol.flags === SymbolFlags.Class && type.symbol.name === "Error") {
+    return true;
+  }
+  const baseTypes = type.getBaseTypes() ?? [];
+  return baseTypes.some((baseType) => isExtendedError(baseType));
+};
+```
+
+こちらの`isExtendedError`関数は、`Error`を継承している場合はtrueを返す関数です。
+この関数では、`type`の情報を見て、クラス名が`Error`の場合は、trueを返すようにしています。
+親の型情報を取得するために、`typescript`の`getBaseTypes`関数を使用して、再起的に実行するようにしています。
+
+ここまで実装できればあとは簡単で、この関数を実行し、Errorを継承していない場合は、規約違反とみなすように実装します。  
+具体的にはこちらのようなコードになります
+
+```ts
+if (isExtendedError(nodeType)) return;
+
+context.report({
+  node: node.id,
+  messageId: "requireExtendsError",
+});
+```
+
+ここまで、ASTから型情報を取得し、それを元にESLintルールを実装する方法について紹介しました。  
+最後に、その応用として、少し高度なルールの実装に触れて終わりたいと思います。

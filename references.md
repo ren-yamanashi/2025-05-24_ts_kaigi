@@ -10,3 +10,5 @@
   - astとは
 - https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Lexical_grammar
 - https://github.com/v8/v8/blob/main/src/parsing/token.h#L167
+- [typescript compiler api](https://github.com/microsoft/TypeScript/wiki/Using-the-Compiler-API)
+  - ここに`Node`とはなにかが書いてある

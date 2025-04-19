@@ -1,5 +1,5 @@
 import { ESLintUtils } from "@typescript-eslint/utils";
-import { Type } from "typescript";
+import { SymbolFlags, Type } from "typescript";
 
 export const requireExtendsError = ESLintUtils.RuleCreator.withoutDocs({
   meta: {
@@ -22,11 +22,11 @@ export const requireExtendsError = ESLintUtils.RuleCreator.withoutDocs({
 
         const nodeType = parserServices.getTypeAtLocation(node);
 
-        const isExtendedError = (type?: Type): boolean => {
-          const baseTypes = type?.getBaseTypes() ?? [];
-          if (type?.symbol?.name === "Error") {
+        const isExtendedError = (type: Type): boolean => {
+          if (type.symbol.flags === SymbolFlags.Class && type.symbol.name === "Error") {
             return true;
           }
+          const baseTypes = type.getBaseTypes() ?? [];
           return baseTypes.some((baseType) => isExtendedError(baseType));
         };
 
