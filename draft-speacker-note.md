@@ -264,6 +264,7 @@ if (true) sampleFn();
 ```
 
 こちらのコードを元に、実際の AST を見てみます。  
+
 コードの AST を見る際には、 [ast explorer](https://ast-explorer.dev/) というサイトが非常に便利です  
 このセッションで紹介している AST はそのサイトで確認した AST を 非常に単純化にしたものを使用しております。  
 こちらがその AST の内容です。
@@ -306,7 +307,7 @@ if (true) sampleFn();
 }
 ```
 
-```jsonc
+```json
 // 異常系
 {
   "type": "Program",
