@@ -17,31 +17,39 @@ src: ./pages/01.title.md
 ---
 
 ---
-src: ./pages/02.self-introduce.md
+src: ./pages/02.beginning.md
 ---
 
 ---
-src: ./pages/03.roadmap.md
+src: ./pages/03.self-introduce.md
 ---
 
 ---
-src: ./pages/04.about-eslint.md
+src: ./pages/04.roadmap.md
 ---
 
 ---
-src: ./pages/05.what-eslint.md
+src: ./pages/05.about-eslint.md
 ---
 
 ---
-src: ./pages/06.what-eslint-custom-rule.md
+src: ./pages/06.what-eslint.md
 ---
 
 ---
-src: ./pages/07.eslint-interface.md
+src: ./pages/07.what-eslint-custom-rule.md
 ---
 
 ---
-src: ./pages/08.about-ast.md
+src: ./pages/08.published-plugin.md
+---
+
+---
+src: ./pages/09.eslint-interface.md
+---
+
+---
+src: ./pages/10.about-ast.md
 ---
 
 ---

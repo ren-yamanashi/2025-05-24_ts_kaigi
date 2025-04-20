@@ -4,6 +4,7 @@ import { defineProps, ref } from "vue";
 const props = defineProps({
 	number: { type: [Number, String], required: true },
 	title: { type: String, required: true },
+	disabled: { type: Boolean, default: false },
 });
 
 const number = ref(props.number);
@@ -11,7 +12,7 @@ const title = ref(props.title);
 </script>
 
 <template>
-	<div class="flex items-center gap-2">
+	<div class="flex items-center gap-2" :class="{ 'opacity-50': disabled }">
 		<div class="circle bg-vpurple text-white">
 			<div class="circle-txt">{{ number }}</div>
 		</div>
