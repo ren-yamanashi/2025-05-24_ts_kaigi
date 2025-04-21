@@ -97,15 +97,15 @@ src: ./pages/21.develop-tseslint-custom-rule.md
 ---
 
 ---
-src: ./pages/18.develop-type-rule.md
+src: ./pages/22.why-need-typescript-eslint.md
 ---
 
 ---
-src: ./pages/19.why-need-typescript-eslint.md
+src: ./pages/23.develop-step.md
 ---
 
 ---
-src: ./pages/20.difference-base-rule.md
+src: ./pages/24.develop-flow.md
 ---
 
 ---
