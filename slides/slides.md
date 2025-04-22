@@ -139,3 +139,7 @@ src: ./pages/31.no-for-in-array-rule.md
 ---
 src: ./pages/32.type-check-structure.md
 ---
+
+---
+src: ./pages/33.test-case.md
+---
