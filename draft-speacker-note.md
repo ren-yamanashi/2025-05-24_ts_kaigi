@@ -1,4 +1,4 @@
-それでは発表させていただきます。よろしくお願いします。
+<!-- それでは発表させていただきます。よろしくお願いします。
 
 早速ですが、皆さんのチームでは TypeScript のコーディング規約をどのように管理していますでしょうか？  
 TypeScript や JavaScript のベストプラクティスに準ずるような、基本的なコーディング規約は ESLint などのツールを使用されていることが多いと思います。  
@@ -565,7 +565,7 @@ export const requireReadonlyInInterface = ESLintUtils.RuleCreator.withoutDocs({
 ここまでが、`typescript-eslint` を使用した、カスタムルールの基本的な開発の流れになります。
 
 ここまでは、JavaScript や TypeScript の AST を利用し、カスタムルールを開発してきました。  
-ここからは、AST と型情報を使用したカスタムルールの開発についてお話しします。
+ここからは、AST と型情報を使用したカスタムルールの開発についてお話しします。 -->
 
 ---
 
