@@ -117,6 +117,22 @@ src: ./pages/26.see-ast.md
 ---
 
 ---
+src: ./pages/27.see-ast-2.md
+---
+
+---
+src: ./pages/28.see-ast-3.md
+---
+
+---
+src: ./pages/29.write-test.md
+---
+
+---
+src: ./pages/30.develop-typed-lint-rule.md
+---
+
+---
 src: ./pages/22.get-type-from-ast.md
 ---
 
