@@ -7,7 +7,7 @@ export default defineShikiSetup(() => {
       dark: "dark-plus",
       light: "light-plus",
     },
-    langs: ["js", "typescript", "zsh", "json", "shell"],
+    langs: ["js", "typescript", "zsh", "json", "shell", "markdown"],
     defaultColor: "light",
   };
 });

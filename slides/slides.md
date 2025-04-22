@@ -129,13 +129,13 @@ src: ./pages/29.develop-typed-lint-rule.md
 ---
 
 ---
-src: ./pages/22.get-type-from-ast.md
+src: ./pages/30.what-typed-lint-rule.md
 ---
 
 ---
-src: ./pages/23.check-extended-construct.md
+src: ./pages/31.no-for-in-array-rule.md
 ---
 
 ---
-src: ./pages/24.check-pascal-case.md
+src: ./pages/32.type-check-structure.md
 ---
