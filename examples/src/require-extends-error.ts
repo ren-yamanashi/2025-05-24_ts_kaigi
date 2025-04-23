@@ -22,14 +22,6 @@ export const requireExtendsError = ESLintUtils.RuleCreator.withoutDocs({
 
         const nodeType = parserServices.getTypeAtLocation(node);
 
-        const isExtendedError = (type: Type): boolean => {
-          if (type.symbol.flags === SymbolFlags.Class && type.symbol.name === "Error") {
-            return true;
-          }
-          const baseTypes = type.getBaseTypes() ?? [];
-          return baseTypes.some((baseType) => isExtendedError(baseType));
-        };
-
         if (isExtendedError(nodeType)) return;
 
         context.report({
@@ -40,3 +32,11 @@ export const requireExtendsError = ESLintUtils.RuleCreator.withoutDocs({
     };
   },
 });
+
+const isExtendedError = (type: Type): boolean => {
+  if (type.symbol.flags === SymbolFlags.Class && type.symbol.name === "Error") {
+    return true;
+  }
+  const baseTypes = type.getBaseTypes() ?? [];
+  return baseTypes.some((baseType) => isExtendedError(baseType));
+};

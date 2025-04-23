@@ -143,3 +143,27 @@ src: ./pages/32.type-check-structure.md
 ---
 src: ./pages/33.test-case.md
 ---
+
+---
+src: ./pages/34.develop-flow.md
+---
+
+---
+src: ./pages/35.judgement-error-class.md
+---
+
+---
+src: ./pages/36.get-type-1.md
+---
+
+---
+src: ./pages/37.get-type-2.md
+---
+
+---
+src: ./pages/38.judgement-extend-error.md
+---
+
+---
+src: ./pages/39.summary.md
+---
