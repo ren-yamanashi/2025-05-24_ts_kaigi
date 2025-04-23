@@ -11,7 +11,7 @@ import defProps from '../utils/props';
   <div class="slidev-layout default center items-center justify-center flex flex-col">
     <h1 v-if="props.heading">{{ props.heading }}</h1>
     <div class="flex items-center justify-center h-full -m-12">
-      <div class="text-2xl">
+      <div>
         <slot/>
       </div>
     </div>

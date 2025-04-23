@@ -11,6 +11,7 @@ export default {
     <slot/>
   </div>
 </template>
+
 <style lang="postcss">
 .slidev-layout.default {
   background-repeat: no-repeat;

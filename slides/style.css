@@ -1,9 +1,9 @@
 .circle {
-	width: 30px;
+	width: 25px;
 	border-radius: 50%;
 	line-height: 0;
 	position: relative;
-	font-size: 15px;
+	font-size: 10px;
 }
 
 .circle::after {
