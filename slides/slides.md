@@ -149,21 +149,29 @@ src: ./pages/34.develop-flow.md
 ---
 
 ---
-src: ./pages/35.judgement-error-class.md
+src: ./pages/35.judgement-error-class-1.md
 ---
 
 ---
-src: ./pages/36.get-type-1.md
+src: ./pages/36.judgement-error-class-2.md
 ---
 
 ---
-src: ./pages/37.get-type-2.md
+src: ./pages/37.get-type-1.md
 ---
 
 ---
-src: ./pages/38.judgement-extend-error.md
+src: ./pages/38.get-type-2.md
 ---
 
 ---
-src: ./pages/39.summary.md
+src: ./pages/39.get-type-3.md
+---
+
+---
+src: ./pages/40.judgement-extend-error.md
+---
+
+---
+src: ./pages/41.summary.md
 ---
