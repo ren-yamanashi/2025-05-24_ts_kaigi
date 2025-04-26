@@ -10,7 +10,7 @@ import defProps from '../utils/props';
 <template>
   <div class="slidev-layout default big-bullet">
     <h1 v-if="props.heading">{{ props.heading }}</h1>
-    <div class="flex items-center justify-center h-full -m-12">
+    <div class="flex items-center justify-center h-full -m-16">
       <div>
         <slot/>
       </div>
@@ -20,7 +20,7 @@ import defProps from '../utils/props';
 
 <style>
 .big-bullet li {
-  font-size: 30px !important;
+  font-size: 20px !important;
   margin-bottom: 15px !important;
   margin-top: 15px !important;
 }
