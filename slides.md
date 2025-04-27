@@ -17,11 +17,11 @@ src: ./pages/01.title.md
 ---
 
 ---
-src: ./pages/02.beginning.md
+src: ./pages/02.self-introduce.md
 ---
 
 ---
-src: ./pages/03.self-introduce.md
+src: ./pages/03.beginning.md
 ---
 
 ---
