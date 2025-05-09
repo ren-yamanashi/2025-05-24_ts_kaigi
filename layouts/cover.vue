@@ -15,7 +15,7 @@ export default {
   </div>
   <div class="more-info-text-container">
     <p class="more-info-text text-vsecondary">
-      2025/03/13
+      2025/05/24
       <br />
       山梨 蓮
     </p>
