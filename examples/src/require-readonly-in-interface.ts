@@ -8,7 +8,6 @@ export const requireReadonlyInInterface = ESLintUtils.RuleCreator.withoutDocs({
     },
     schema: [],
   },
-  defaultOptions: [],
   create(context) {
     return {
       TSInterfaceDeclaration(node) {
