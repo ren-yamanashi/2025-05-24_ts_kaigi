@@ -173,9 +173,17 @@ src: ./pages/40.judgement-extend-error-3.md
 ---
 
 ---
-src: ./pages/42.summary-2.md
+src: ./pages/41.develop-team-coding-rule.md
 ---
 
 ---
-src: ./pages/43.references.md
+src: ./pages/42.story.md
+---
+
+---
+src: ./pages/43.summary.md
+---
+
+---
+src: ./pages/44.references.md
 ---
