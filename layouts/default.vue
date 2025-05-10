@@ -1,14 +1,13 @@
 <script>
-import props from '../utils/props';
+import props from "../utils/props";
 export default {
   props,
-  setup() {
-  },
-}
+  setup() {},
+};
 </script>
 <template>
   <div class="slidev-layout default">
-    <slot/>
+    <slot />
   </div>
 </template>
 
@@ -17,5 +16,9 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
 }
 </style>
