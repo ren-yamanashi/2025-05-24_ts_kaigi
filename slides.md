@@ -161,7 +161,15 @@ src: ./pages/37.get-type-3.md
 ---
 
 ---
-src: ./pages/38.judgement-extend-error.md
+src: ./pages/38.judgement-extend-error-1.md
+---
+
+---
+src: ./pages/39.judgement-extend-error-2.md
+---
+
+---
+src: ./pages/39.judgement-extend-error-3.md
 ---
 
 ---
