@@ -13,14 +13,14 @@ src: ./pages/01.title.md
 seoMeta:
   ogTitle: TypeScript の型システムを活用した ESLint カスタムルール開発入門
   ogDescription: TSKaigi 2025 の発表資料です。TypeScript の型システムを活用した ESLint のカスタムルールの開発手法などについて解説しております。TSKaigi の Youtube チャンネルでアーカイブ動画が公開されておりますので、そちらをご覧ください。
-  ogImage: https://cover.sli.dev
-  ogUrl: https://example.com
+  ogImage: https://ren-yamanashi.github.io/2025-05-24_ts_kaigi/og.png
+  ogUrl: https://ren-yamanashi.github.io/2025-05-24_ts_kaigi
   twitterCard: summary_large_image
   twitterTitle: TypeScript の型システムを活用した ESLint カスタムルール開発入門
   twitterDescription: TSKaigi 2025 の発表資料です。TypeScript の型システムを活用した ESLint のカスタムルールの開発手法などについて解説しております。TSKaigi の Youtube チャンネルでアーカイブ動画が公開されておりますので、そちらをご覧ください。
-  twitterImage: https://cover.sli.dev
+  twitterImage: https://ren-yamanashi.github.io/2025-05-24_ts_kaigi/og.png
   twitterSite: ren_yamanashi
-  twitterUrl: https://example.com
+  twitterUrl: https://ren-yamanashi.github.io/2025-05-24_ts_kaigi
 ---
 
 ---
