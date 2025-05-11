@@ -1,19 +1,26 @@
 ---
-# try also 'default' to start simple
 theme: default
 transition: none
 colorSchema: light
-# random image from a curated Unsplash collection by Anthony
 highlighter: shiki
-# apply any windi css classes to the current slide
-# class: 'text-center'
 layout: cover
 fonts:
-  # 標準テキスト
+  # normal text
   sans: Noto Sans JP
-  # コードブロック
+  # code block
   mono: Fira Code
 src: ./pages/01.title.md
+seoMeta:
+  ogTitle: TypeScript の型システムを活用した ESLint カスタムルール開発入門
+  ogDescription: TSKaigi 2025 の発表資料です。TypeScript の型システムを活用した ESLint のカスタムルールの開発手法などについて解説しております。TSKaigi の Youtube チャンネルでアーカイブ動画が公開されておりますので、そちらをご覧ください。
+  ogImage: https://cover.sli.dev
+  ogUrl: https://example.com
+  twitterCard: summary_large_image
+  twitterTitle: TypeScript の型システムを活用した ESLint カスタムルール開発入門
+  twitterDescription: TSKaigi 2025 の発表資料です。TypeScript の型システムを活用した ESLint のカスタムルールの開発手法などについて解説しております。TSKaigi の Youtube チャンネルでアーカイブ動画が公開されておりますので、そちらをご覧ください。
+  twitterImage: https://cover.sli.dev
+  twitterSite: ren_yamanashi
+  twitterUrl: https://example.com
 ---
 
 ---
