@@ -9,7 +9,6 @@ fonts:
   sans: Noto Sans JP
   # code block
   mono: Fira Code
-src: ./pages/01.title.md
 seoMeta:
   ogTitle: TypeScript の型システムを活用した ESLint カスタムルール開発入門
   ogDescription: TSKaigi 2025 の発表資料です。TypeScript の型システムを活用した ESLint のカスタムルールの開発手法などについて解説しております。TSKaigi の Youtube チャンネルでアーカイブ動画が公開されておりますので、そちらをご覧ください。
@@ -21,7 +20,21 @@ seoMeta:
   twitterImage: https://ren-yamanashi.github.io/2025-05-24_ts_kaigi/og.png
   twitterSite: ren_yamanashi
   twitterUrl: https://ren-yamanashi.github.io/2025-05-24_ts_kaigi
+  ogType: website
+  ogSiteName: TSKaigi 2025
+  twitterCreator: ren_yamanashi
 ---
+
+# TypeScript の型システムを活用した
+# ESLint カスタムルール開発入門
+
+## ~固有ドメインにおけるコーディング規約を開発する~
+
+TSKaigi 2025
+
+<!-- 
+それでは発表させていただきます。よろしくお願いします。
+-->
 
 ---
 src: ./pages/02.self-introduce.md
