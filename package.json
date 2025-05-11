@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "slidev build",
-    "dev": "slidev --open",
+    "dev": "slidev --open --remote --bind 0.0.0.0",
     "export": "slidev export"
   },
   "dependencies": {
