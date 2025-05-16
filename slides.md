@@ -37,12 +37,13 @@ TSKaigi 2025
 -->
 
 ---
-src: ./pages/02.self-introduce.md
+src: ./pages/02.beginning.md
 ---
 
 ---
-src: ./pages/03.beginning.md
+src: ./pages/03.self-introduce.md
 ---
+
 
 ---
 src: ./pages/04.roadmap.md
