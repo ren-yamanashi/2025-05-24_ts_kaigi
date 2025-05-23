@@ -198,10 +198,6 @@ src: ./pages/41.develop-team-coding-rule.md
 ---
 
 ---
-src: ./pages/42.story.md
----
-
----
 src: ./pages/43.summary.md
 ---
 
