@@ -37,6 +37,10 @@ TSKaigi 2025
 -->
 
 ---
+src: ./pages/qr.md
+---
+
+---
 src: ./pages/02.beginning.md
 ---
 
