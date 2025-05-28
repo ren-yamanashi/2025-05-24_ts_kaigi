@@ -1,11 +1,4 @@
-# Welcome to [Slidev](https://github.com/slidevjs/slidev)!
+# TSKaigi 2025 登壇資料
 
-To start the slide show:
-
-- `pnpm install`
-- `pnpm dev`
-- visit <http://localhost:3030>
-
-Edit the [slides.md](./slides.md) to see the changes.
-
-Learn more about Slidev at the [documentation](https://sli.dev/).
+- title: TypeScript の型システムを活用したESLint カスタムルール開発入門 ~固有ドメインにおけるコーディング規約を開発する~
+- url: https://ren-yamanashi.github.io/2025-05-24_ts_kaigi
